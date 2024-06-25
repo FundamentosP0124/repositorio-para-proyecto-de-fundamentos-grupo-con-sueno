@@ -2,6 +2,7 @@
 #include<time.h>
 #include<random>
 #include<conio.h>
+#include<string.h>
 
 using namespace std;
 
@@ -11,6 +12,9 @@ int numero_aleatorio();
 //Funcion para elegir la palabra dependiendo de la dificultad elegida por el usuario
 string seleccion_palabra(int x);
 
+//Funcion para sacar el numero de caracteres de la palabra escogida
+int numero_caracteres(int x);
+
 int main(){
     int opcion = 0;
     int numero_fallos = 0;
@@ -19,7 +23,9 @@ int main(){
 
     cin>>opcion;
 
-    cout<<seleccion_palabra(opcion);
+    cout<<seleccion_palabra(opcion)<<endl;
+    cout<<"El numero de caracteres de la palabra es: "<<numero_caracteres(opcion);
+    
 
     return 0;
 }
@@ -72,3 +78,13 @@ string seleccion_palabra(int x){
     return palabra;
 }
 
+int numero_caracteres(int x){
+    int num_caracteres = 0;
+
+    for ( int i = 0; seleccion_palabra(x)[i]; i++)
+    {
+        num_caracteres++;
+    }
+
+    return num_caracteres;
+}
