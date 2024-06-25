@@ -12,6 +12,14 @@ int numero_aleatorio();
 string seleccion_palabra(int x);
 
 int main(){
+    int opcion = 0;
+    int numero_fallos = 0;
+    bool letra_correcta = false;
+    bool palabra_completa = false;
+
+    cin>>opcion;
+
+    cout<<seleccion_palabra(opcion);
 
     return 0;
 }
@@ -24,5 +32,43 @@ int numero_aleatorio(){
     int asignar_palabra = rand() % 5;
 
     return asignar_palabra;
+}
+
+string seleccion_palabra(int x){
+    //Variables de las palabras del juego y su dificultad
+    string palabra_facil[5]={"juego","taxi","comida","redes","caida",};
+    string palabra_normal[5]={"programacion","desinfectante","recolectar","mosquitos","escalofrios"};
+    string palabra_dificil[5]={"electrocardiograma","transustanciacion","ovoviviparo","desacostumbradamente","lactovegetarianismo"};
+    string palabra_maxdif="electroencefalografista";
+
+    string palabra;
+    //La funcion retorna la palabra dependiendo de la dificultad
+    switch (x){
+    case 1:
+        palabra = palabra_facil[numero_aleatorio()];
+        break;
+
+    case 2:
+        palabra = palabra_normal[numero_aleatorio()];
+        break;
+
+    case 3:
+        palabra = palabra_dificil[numero_aleatorio()];
+        break;
+
+    case 4:
+        palabra = palabra_maxdif;
+        break;
+
+    case 5:
+        palabra = "Haz regresado al menu anterior";
+        break;
+    
+    default:
+        palabra = "Opcion incorrecta intente de nuevo";
+        break;
+    }
+
+    return palabra;
 }
 
