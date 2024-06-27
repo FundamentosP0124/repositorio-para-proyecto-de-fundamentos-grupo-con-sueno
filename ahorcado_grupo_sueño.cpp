@@ -13,19 +13,19 @@ int numero_aleatorio();
 string seleccion_palabra(int x);
 
 //Funcion para sacar el numero de caracteres de la palabra escogida
-int numero_caracteres(int x);
+int numero_caracteres(string pal);
+
+//Funcion que mostrara la palabra mientras se vaya descubriendo
+void palabra_escribir(string show, string word);
+
+bool comparar_mostrar_palabra(bool full_word, string show, string word);
+
+void prueba();
 
 int main(){
-    int opcion = 0;
-    int numero_fallos = 0;
-    bool letra_correcta = false;
-    bool palabra_completa = false;
 
-    cin>>opcion;
-
-    cout<<seleccion_palabra(opcion)<<endl;
-    cout<<"El numero de caracteres de la palabra es: "<<numero_caracteres(opcion);
     
+    prueba();
 
     return 0;
 }
@@ -51,6 +51,7 @@ string seleccion_palabra(int x){
     //La funcion retorna la palabra dependiendo de la dificultad
     switch (x){
     case 1:
+    //la dificultad elegida es facil
         palabra = palabra_facil[numero_aleatorio()];
         break;
 
@@ -74,17 +75,66 @@ string seleccion_palabra(int x){
         palabra = "Opcion incorrecta intente de nuevo";
         break;
     }
-
+//retorna la palabra escogida al azar dependiendo de 
     return palabra;
 }
 
-int numero_caracteres(int x){
+int numero_caracteres(string pal){
     int num_caracteres = 0;
 
-    for ( int i = 0; seleccion_palabra(x)[i]; i++)
-    {
+    for ( int i = 0; pal[i]; i++){
         num_caracteres++;
     }
 
     return num_caracteres;
+}
+
+void Comparar_letra(){
+}
+
+void prueba(){
+    int opcion;
+    opcion = 0;
+    int fallos = 0;
+
+    bool letra_correcta = false;
+    bool palabra_correcta = false;
+
+    const string palabra = "hola";
+    string mostrar;
+    char letra;
+
+    for (int i = 0; i < 4; i++)
+    {
+        mostrar[i] = '_';
+    }
+    
+    while (fallos < 6 && !palabra_correcta)//mientras los fallos sean menores a 6 y la palabra no este descubierta
+    {
+        for (int i = 0; i < 4; i++){
+            cout<<mostrar[i]<<" ";
+        }
+        
+        cin>>letra;//Jugador inserta la letra
+
+        letra_correcta = false;//la variable de letra verdadera se resetea a falso para continuar con la comparación
+        palabra_correcta = false;
+
+        for (int i = 0; i < 4; i++){//loop para confirmar si la letra existe en la palabra a encontrar
+
+            if (letra == palabra[i]){//la letra es igual a alguna letra de la palabra
+
+                mostrar[i] = letra;//El guion bajo se cambia a la letra correcta
+                letra_correcta = true;//Si en algun momento la letra coincide con una de la palabra esta variable se volvera verdad
+            }
+            
+        }
+
+//Si la letra no coincide con ninguna de la palabra original entonces se aumentan los fallos
+        if (letra_correcta == false){
+            fallos++;
+            //aqui se aumentarian los fallos del jugador
+        }
+
+    }
 }
