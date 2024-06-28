@@ -136,5 +136,25 @@ void prueba(){
             //aqui se aumentarian los fallos del jugador
         }
 
+        for (int i = 0; i < 4; i++){
+
+        if (mostrar[i] == palabra[i]){
+            palabra_correcta = true;
+        }
+
+        else if (mostrar[i] != palabra[i]){
+            palabra_correcta = false;
+        }
+
+        }
+
     }
+
+    for (int i = 0; i < 4; i++)
+    {
+        cout<<mostrar[i]<<" ";
+    }
+    
+
+    
 }
