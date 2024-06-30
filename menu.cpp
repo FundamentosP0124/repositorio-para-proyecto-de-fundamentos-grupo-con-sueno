@@ -55,12 +55,12 @@ cout << "4. Salir" << endl;
 cout << "Seleccione una opcion: "; 
 }
 
-//Se comienza el juego
+
 int comenzarJuego(){
 
 }
 
-//Como jugar del menu de ayuda 
+
 int menuAyuda(){
     cout << endl << endl; 
     cout << "COMO JUGAR AHORCADO: " << endl << endl; 
@@ -72,7 +72,7 @@ int menuAyuda(){
     cout << " (6) El juego finaliza cuando se llena la palabra o se completa el dibujo del ahorcado" << endl << endl; 
 }
 
-//Nombres y carne de los integrantes
+
 int mostrarIntegrantes(){
     cout << "INTEGRANTES DEL PROYECTO: " << endl << endl; 
     cout << "Sebastian Leonardo Molina Santos 00161024" << endl; 
@@ -80,7 +80,7 @@ int mostrarIntegrantes(){
     cout << "Kristen Nicole Cruz Rodriguez 00051524" << endl; 
 }
 
-//Se cierra el juego
+
 int salir(){
     cout << "Gracias por jugar ahorcado" << endl; 
 }
