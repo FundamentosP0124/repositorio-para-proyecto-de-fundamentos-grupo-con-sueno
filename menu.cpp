@@ -1,32 +1,38 @@
 #include <iostream>
 using namespace std; 
 
+//Funcion para mostrar el menu principal
 int menuPrincipal(); 
+//Funcion para iniciar el juego de ahorcado
 int comenzarJuego(); 
+//Funcion para mostrar el menu de ayuda
 int menuAyuda(); 
+//Funcion para mostrar los integrantes del proyecto
 int mostrarIntegrantes(); 
+//Funcion para salir del juego
 int salir(); 
  
 
 int main(){
     int opcion; 
-
+    
+    //Se repite mientras la opcion no sea igual a 4 (salir)
     while(opcion != 4){
         menuPrincipal(); 
         cin >> opcion; 
 
         switch(opcion){
         case 1: 
-           comenzarJuego(); 
+           comenzarJuego(); //Se comienza el juego
            break; 
         case 2: 
-           menuAyuda(); 
+           menuAyuda(); //Se muestra el menu de ayuda 
            break; 
         case 3: 
-            mostrarIntegrantes();
+            mostrarIntegrantes(); //Se muestra el menu de integrantes
             break; 
         case 4: 
-            salir(); 
+            salir(); //Se sale del juego y se cierra el menu
             break; 
         default: 
             cout << "Opcion no valida. Seleccione una opcion entre 1 y 4" << endl; 
@@ -37,6 +43,7 @@ int main(){
     return 0; 
 }
 
+//Opciones del menu principal del juego
 int menuPrincipal(){ 
 cout << "*******************" << endl;
 cout << "JUEGO DE AHORCADO" << endl << endl; 
@@ -48,10 +55,12 @@ cout << "4. Salir" << endl;
 cout << "Seleccione una opcion: "; 
 }
 
+//Se comienza el juego
 int comenzarJuego(){
 
 }
 
+//Como jugar del menu de ayuda 
 int menuAyuda(){
     cout << endl << endl; 
     cout << "COMO JUGAR AHORCADO: " << endl << endl; 
@@ -63,6 +72,7 @@ int menuAyuda(){
     cout << " (6) El juego finaliza cuando se llena la palabra o se completa el dibujo del ahorcado" << endl << endl; 
 }
 
+//Nombres y carne de los integrantes
 int mostrarIntegrantes(){
     cout << "INTEGRANTES DEL PROYECTO: " << endl << endl; 
     cout << "Sebastian Leonardo Molina Santos 00161024" << endl; 
@@ -70,6 +80,7 @@ int mostrarIntegrantes(){
     cout << "Kristen Nicole Cruz Rodriguez 00051524" << endl; 
 }
 
+//Se cierra el juego
 int salir(){
     cout << "Gracias por jugar ahorcado" << endl; 
 }
