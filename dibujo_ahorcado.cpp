@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std; 
 
+// Funcion para mostrar el dibujo del ahorcado
 int dibujo_ahorcado(int x);
 int x; 
 
