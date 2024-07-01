@@ -6,7 +6,11 @@ int dibujo_ahorcado(int x);
 int x; 
 
 int main(){
-  int dibujo_ahorcado(int x); 
+    
+return 0;   
+}
+
+int dibujo_ahorcado(int x){
 
   switch (x){
     case 0:
@@ -82,7 +86,4 @@ int main(){
     default:
         break;
     }
-
-
-
 }
