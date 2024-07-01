@@ -89,29 +89,26 @@ int numero_caracteres(string pal){
     return num_caracteres;
 }
 
-void Comparar_letra(){
-}
-
 void prueba(){
     int opcion;
-    opcion = 0;
+    opcion = 2;
     int fallos = 0;
 
     bool letra_correcta = false;
     bool palabra_correcta = false;
 
-    const string palabra = "hola";
+    const string palabra = seleccion_palabra(opcion);
     string mostrar;
     char letra;
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < numero_caracteres(palabra); i++)
     {
         mostrar[i] = '_';
     }
     
     while (fallos < 6 && !palabra_correcta)//mientras los fallos sean menores a 6 y la palabra no este descubierta
     {
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < numero_caracteres(palabra); i++){
             cout<<mostrar[i]<<" ";
         }
         
@@ -120,7 +117,7 @@ void prueba(){
         letra_correcta = false;//la variable de letra verdadera se resetea a falso para continuar con la comparación
         palabra_correcta = false;
 
-        for (int i = 0; i < 4; i++){//loop para confirmar si la letra existe en la palabra a encontrar
+        for (int i = 0; i < numero_caracteres(palabra); i++){//loop para confirmar si la letra existe en la palabra a encontrar
 
             if (letra == palabra[i]){//la letra es igual a alguna letra de la palabra
 
@@ -136,7 +133,7 @@ void prueba(){
             //aqui se aumentarian los fallos del jugador
         }
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < numero_caracteres(palabra); i++){
 
         if (mostrar[i] == palabra[i]){
             palabra_correcta = true;
@@ -150,7 +147,7 @@ void prueba(){
 
     }
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < numero_caracteres(palabra); i++)
     {
         cout<<mostrar[i]<<" ";
     }
