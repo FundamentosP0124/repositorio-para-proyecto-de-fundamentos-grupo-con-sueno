@@ -136,20 +136,15 @@ int menuAyuda(){
 }
 
 int mostrarIntegrantes(){
-<<<<<<< HEAD
-=======
     int num; 
     bool volverMenu = false; 
-    
-    //Permite volver al menu principal al mostrar los integrantes 
+
     while(!volverMenu){
->>>>>>> kristen
+    cout << endl; 
     cout << "INTEGRANTES DEL PROYECTO: " << endl << endl; 
     cout << "Sebastian Leonardo Molina Santos 00161024" << endl; 
     cout << "Fernando Josue Escamilla Rivera 00053324" << endl; 
-    cout << "Kristen Nicole Cruz Rodriguez 00051524" << endl;
-<<<<<<< HEAD
-=======
+    cout << "Kristen Nicole Cruz Rodriguez 00051524" << endl << endl;
 
     cout << "Ingresar 1 para volver al menu principal: "; 
     cin >> num; 
@@ -161,8 +156,7 @@ int mostrarIntegrantes(){
     else{
         cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
     }
-    }
->>>>>>> kristen
+}
 }
 
 
