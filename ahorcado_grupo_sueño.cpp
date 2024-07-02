@@ -73,6 +73,7 @@ int main(){
 
 //Opciones del menu principal del juego
 int menuPrincipal(){ 
+cout << endl; 
 cout << "=================" << endl;
 cout << "     AHORCADO    " << endl; 
 cout << "=================" << endl; 
@@ -85,25 +86,7 @@ cout << "Seleccione una opcion: ";
 
 
 int comenzarJuego(){
-    int num; 
-    bool volverMenu = false; 
-    
-    //Permite volver al menu principal al comenzar el juego
-    while(!volverMenu){
-    //Se inicia el juego
-
-    cout << "Ingresar 1 para volver al menu principal: "; 
-    cin >> num; 
-    
-    //Si el numero ingresado es 1, se regresa al menu principal
-    if(num == 1){
-        volverMenu = true; 
-    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu  
-    else{
-        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
-    }
-    }
-
+    void juegoPrincipal(); 
 }
 
 
@@ -165,6 +148,7 @@ int salir(){
 }
 
 void menu_dificultad(){
+    int dificultad; 
     cout<<"===================\n";
     cout<<"Elija la dificultad\n";
     cout<<"===================\n\n";
@@ -172,6 +156,7 @@ void menu_dificultad(){
     cout<<"\t[1] Facil\n";
     cout<<"\t[2] Normal\n";
     cout<<"\t[3] Dificil\n";
+    cin >> dificultad; 
 }
 
 void Juego_Principal(){
@@ -187,7 +172,23 @@ void Juego_Principal(){
     //Variables para confirmar si la palabra esta completamente adivinada y si la letra insertada es correcta
     bool palabra_completa = false;
     bool letra_correcta = false;
+    int num; 
+    bool volverMenu = false; 
+
+    while(!volverMenu){
     
+    cout << endl << endl; 
+    cout << "     AHORCADO      " << endl; 
+    cout << "Turno de: " << endl << endl; 
+        cout<<"    +---+ \n";
+        cout<<"        | \n";
+        cout<<"        | \n";
+        cout<<"        | \n";
+        cout<<"        | \n";
+        cout<<"        | \n";
+        cout<<"   ======";
+        cout << endl; 
+        
     for (int i = 0; i < num_characteres_palabra; i++){//se asignan guiones a los valores de mostrar
         mostrar[i] = '_';
     }
@@ -199,7 +200,8 @@ void Juego_Principal(){
         for (int i = 0; i < num_characteres_palabra; i++){
             cout<<mostrar[i]<<" ";
         }
-        
+        cout << endl; 
+        cout << "Ingrese la letra: "; 
         cin>>letra;
 
         for (int i = 0; i < num_characteres_palabra; i++){//verifica si la letra es igual a algun caracter de la palabra
@@ -235,16 +237,25 @@ void Juego_Principal(){
         for (int i = 0; i < num_characteres_palabra; i++){//Se muestra la palabra
             cout<<palabra[i];
         }
-    }
-
-    else{//Si se encontro la palabra
+        
+    } else{//Si se encontro la palabra
         cout<<"La palabra correcta es: ";
         for (int i = 0; i < num_characteres_palabra; i++){//se muestra la palabra
             cout<<palabra[i];
         }
     }
-
     cout<<endl;//Salto de linea
+    cout << "Ingresar 1 para volver al menu principal: "; 
+    cin >> num; 
+    
+    //Si el numero ingresado es 1, se regresa al menu principal
+    if(num == 1){
+        volverMenu = true; 
+    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu 
+    else{
+        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
+    }
+    }
 }
 
 int numero_aleatorio(){
