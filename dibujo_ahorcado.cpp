@@ -2,17 +2,16 @@
 using namespace std; 
 
 // Funcion para mostrar el dibujo del ahorcado
-int dibujo_ahorcado(int x);
-int x; 
+int dibujo_ahorcado(int fallos);
 
 int main(){
     
 return 0;   
 }
 
-int dibujo_ahorcado(int x){
+int dibujo_ahorcado(int fallos){
 
-  switch (x){
+  switch (fallos){
     case 0:
         cout<<" +---+ \n";
         cout<<"     | \n";
@@ -64,11 +63,11 @@ int dibujo_ahorcado(int x){
         break;
 
     case 5:
-        cout<<" +---+ \n";
+         cout<<" +---+ \n";
         cout<<" |   | \n";
         cout<<" O   | \n";
         cout<<"/|\\  | \n";
-        cout<<"  \\  | \n";
+        cout<<"     | \n";
         cout<<"     | \n";
         cout<<"======";
         break;
