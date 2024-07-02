@@ -85,11 +85,34 @@ cout << "Seleccione una opcion: ";
 
 
 int comenzarJuego(){
+    int num; 
+    bool volverMenu = false; 
+    
+    //Permite volver al menu principal al comenzar el juego
+    while(!volverMenu){
+    //Se inicia el juego
+
+    cout << "Ingresar 1 para volver al menu principal: "; 
+    cin >> num; 
+    
+    //Si el numero ingresado es 1, se regresa al menu principal
+    if(num == 1){
+        volverMenu = true; 
+    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu  
+    else{
+        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
+    }
+    }
 
 }
 
 
 int menuAyuda(){
+    int num; 
+    bool volverMenu = false; 
+    
+    //Permite volver al menu principal al mostrar las instrucciones  
+    while(!volverMenu){
     cout << endl << endl; 
     cout << "COMO JUGAR AHORCADO: " << endl << endl; 
     cout << " (1) El juego elige una palabra al azar dependiendo del nivel de dificultad seleccionado" << endl; 
@@ -97,14 +120,49 @@ int menuAyuda(){
     cout << " (3) Si la letra introducida se encuentra en la palabra, se llenara el espacio y se mostrara en la posicion correcta" << endl; 
     cout << " (4) Si la letra introducida no se encuentra en la palabra, se dibujara una parte del ahorcado" << endl; 
     cout << " (5) Se permite introducir solo seis letras incorrectas, despues de esto el dibujo del ahorcado se completa" << endl; 
-    cout << " (6) El juego finaliza cuando se llena la palabra o se completa el dibujo del ahorcado" << endl << endl; 
+    cout << " (6) El juego finaliza cuando se llena la palabra o se completa el dibujo del ahorcado" << endl << endl;
+
+    cout << "Ingresar 1 para volver al menu principal: "; 
+    cin >> num; 
+    
+    //Si el numero ingresado es 1, se regresa al menu principal
+    if(num == 1){
+        volverMenu = true; 
+    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu 
+    else{
+        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
+    }
+    }
 }
 
 int mostrarIntegrantes(){
+<<<<<<< HEAD
+=======
+    int num; 
+    bool volverMenu = false; 
+    
+    //Permite volver al menu principal al mostrar los integrantes 
+    while(!volverMenu){
+>>>>>>> kristen
     cout << "INTEGRANTES DEL PROYECTO: " << endl << endl; 
     cout << "Sebastian Leonardo Molina Santos 00161024" << endl; 
     cout << "Fernando Josue Escamilla Rivera 00053324" << endl; 
     cout << "Kristen Nicole Cruz Rodriguez 00051524" << endl;
+<<<<<<< HEAD
+=======
+
+    cout << "Ingresar 1 para volver al menu principal: "; 
+    cin >> num; 
+    
+    //Si el numero ingresado es 1, se regresa al menu principal
+    if(num == 1){
+        volverMenu = true; 
+    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu
+    else{
+        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
+    }
+    }
+>>>>>>> kristen
 }
 
 
