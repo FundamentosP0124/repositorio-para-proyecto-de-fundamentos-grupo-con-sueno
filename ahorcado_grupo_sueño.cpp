@@ -3,8 +3,19 @@
 #include<random>
 #include<conio.h>
 #include<string.h>
-
 using namespace std;
+struct jugadores
+{
+    string jugador1;
+    int fallosjugador1;
+    string judador2;
+    int fallosjugador2;
+    string jugador3;
+    int fallosjugador3;
+    string jugador4;
+    int fallosjugador4;
+}jugad[4];
+
 
 //Funcion para mostrar el menu principal
 int menuPrincipal(); 
