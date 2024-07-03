@@ -12,16 +12,13 @@ struct jugador
 };
 jugador jugadores[MAX_JUGADORES];
 
-
-
 //Funcion para mostrar el menu principal
 int menuPrincipal(); 
 
+int menuJuego(); 
+
 //funcion para agregar jugadores
 int agregarJugadores();
-
-//Funcion para iniciar el juego de ahorcado
-int comenzarJuego(); 
 
 //Funcion para mostrar el menu de ayuda
 int menuAyuda(); 
@@ -44,8 +41,8 @@ string seleccion_palabra(int diff);
 void Juego_Principal();
 
 int main(){
-    int opcion; 
-    
+    int opcion;
+
     //Se repite mientras la opcion no sea igual a 4 (salir)
     while(opcion != 4){
         menuPrincipal(); 
@@ -53,17 +50,7 @@ int main(){
 
         switch(opcion){
         case 1: 
-           agregarJugadores();
-           /* Menu antes de empezar el juego
-
-           1. asignar jugadores
-           2. ver jugadores
-
-           luego pediria el numero de rondas
-
-           comienza el juego */
-
-           Juego_Principal();
+           menuJuego(); 
            break; 
         case 2: 
            menuAyuda(); //Se muestra el menu de ayuda 
@@ -95,6 +82,27 @@ cout << "3. Mostrar integrantes del proyecto" << endl;
 cout << "4. Salir" << endl;
 cout << "Seleccione una opcion: "; 
 }
+
+int menuJuego(){
+    int accion; 
+
+    cout << endl; 
+    cout << "MENU DE COMENZAR JUEGO" << endl; 
+    cout << "(1) Menu de jugadores" << endl; 
+    cout << "(2) Iniciar juego" << endl; 
+    cout << "Ingrese su opcion: "; 
+    cin >> accion; 
+
+    switch(accion){
+        case 1: 
+        agregarJugadores(); 
+        break; 
+        case 2: 
+        Juego_Principal(); 
+        break; 
+    }
+}
+
 int agregarJugadores() {
     int n;
     //un do while, cuando se le pide al usuario el numero de jugadores, si ingresa otro numero 
@@ -120,12 +128,6 @@ int agregarJugadores() {
     }
 
     return n;
-}
-
-
-
-int comenzarJuego(){
-    void juegoPrincipal(); 
 }
 
 
@@ -215,10 +217,9 @@ void Juego_Principal(){
     bool volverMenu = false; 
 
     while(!volverMenu){
-    
     cout << endl << endl; 
     cout << "     AHORCADO      " << endl; 
-    cout << "Turno de: " << endl << endl; 
+    cout << "Turno de: "  << endl;  
         cout<<"    +---+ \n";
         cout<<"        | \n";
         cout<<"        | \n";
