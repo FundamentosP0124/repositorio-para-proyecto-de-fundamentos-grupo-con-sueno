@@ -100,6 +100,9 @@ int menuJuego(){
         case 2: 
         Juego_Principal(); 
         break; 
+        default: 
+        cout << "Valor ingresado no valido. Intente de nuevo" << endl; 
+        break; 
     }
 }
 
