@@ -1,47 +1,38 @@
 #include <iostream>
 using namespace std;
-int main()
-{
-    //declaracion de variables para ingresar jugadores por medio de un arreglo
+//indicamos la estructura a utilizar en la funcion, indicando primeramente el maximo de jugadores
+const int MAX_JUGADORES = 4;
+
+struct Jugador {
+    string nombre;
+    int numFallos;
+};
+
+Jugador jugadores[MAX_JUGADORES];
+
+int agregarJugadores() {
     int n;
-    string num [100];
-    char letra; 
-    //menu para agregar jugadores utilizando un do while para solo aceptar datos entre 1 y 4
-     do
-    {
-    cout<<"Bienvenido al juego de ahorcados""\n";
-    cout<<"cuantos jugaran(maximo 4).""\n";
-    cin>>n;   
-     if(n>4||n<1){
-        cout<<"datos incorrectos, el maximo es de 4 jugadores""\n";
+    //un do while, cuando se le pide al usuario el numero de jugadores, si ingresa otro numero 
+    //que no este en el rango de (1-4) se repite.
+    do {
+        cout << "Cuantos jugadores van a jugar? (1-4): ";
+        cin >> n;
+
+        if (n < 1 || n > MAX_JUGADORES) {
+            cout << "Numero de jugadores no valido. Intente nuevamente." << endl;
+        }
+    } while (n < 1 || n > MAX_JUGADORES);
+    //un bucle for para gregar los nombres de los jugadores segun el numero introducido.
+    for (int i = 0; i < n; i++) {
+        cout << "Agregue el nombre del jugador " << (i + 1) << ": ";
+        cin >> jugadores[i].nombre;
+        jugadores[i].numFallos = 0; // Inicializamos numFallos a 0
     }
-     } while (n>4||n<1);
-     //introducir datos de los jugadores con un for, segun el numero de jugadores que se eligio antes
-   
-         for(int i=0; i<n; i++){
-        cout<<"introduzca un nombre del jugador"<<i+1<<"\n";
-        cin>>num[i];
-       }
-    //se muestra en pantalla los jugadores en orden 
-    for(int j=0; j<n; j++){
-    cout<<"El jugador"<<j+1<<"es""\n"<<num[j]<<"\n";
-   }
-   //se repite el turno hasta que se acierte la palabra.
-    do
-   {
-   for(int k=0; k<n; k++){
-  
-    cout<<"turno del jugador"<<num[k]<<"\n""ingrese una letra""\n";
-    cin>>letra;
-   } 
-   } while (code);
- 
-   
-   
-   
-    
-   
 
+    cout << "Jugadores agregados:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "Jugador " << (i + 1) << ": " << jugadores[i].nombre << endl;
+    }
 
-return 0; 
+    return n;
 }
