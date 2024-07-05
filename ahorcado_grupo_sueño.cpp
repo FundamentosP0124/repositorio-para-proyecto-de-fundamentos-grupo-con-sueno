@@ -3,8 +3,11 @@
 #include<random>
 #include<conio.h>
 #include<string.h>
+
 using namespace std;
-const int MAX_JUGADORES=4;
+
+const int MAX_JUGADORES = 4;
+
 struct jugador
 {
    string nombre;
@@ -40,6 +43,9 @@ string seleccion_palabra(int diff);
 //Funcion del juego del ahorcado
 void Juego_Principal();
 
+//Funcion para dibujar al muñeco del ahorcado
+int dibujo_ahorcado(int x);
+
 int main(){
     int opcion;
 
@@ -73,13 +79,13 @@ int main(){
 //Opciones del menu principal del juego
 int menuPrincipal(){ 
 cout << endl; 
-cout << "=================" << endl;
-cout << "     AHORCADO    " << endl; 
-cout << "=================" << endl; 
-cout << "1. Comenzar a jugar" << endl; 
-cout << "2. Mostrar menu de ayuda" << endl; 
-cout << "3. Mostrar integrantes del proyecto" << endl; 
-cout << "4. Salir" << endl;
+cout << "====================================\n";
+cout << "             AHORCADO    \n";
+cout << "====================================\n";
+cout << "[1] Comenzar a jugar\n"; 
+cout << "[2] Mostrar menu de ayuda\n"; 
+cout << "[3] Mostrar integrantes del proyecto\n"; 
+cout << "[4] Salir\n\n";
 cout << "Seleccione una opcion: "; 
 }
 
@@ -87,9 +93,9 @@ int menuJuego(){
     int accion; 
 
     cout << endl; 
-    cout << "MENU DE COMENZAR JUEGO" << endl; 
-    cout << "(1) Menu de jugadores" << endl; 
-    cout << "(2) Iniciar juego" << endl; 
+    cout << "MENU DE COMENZAR JUEGO\n"; 
+    cout << "[1] Menu de jugadores\n"; 
+    cout << "[2] Iniciar juego\n"; 
     cout << "Ingrese su opcion: "; 
     cin >> accion; 
 
@@ -169,7 +175,7 @@ int mostrarIntegrantes(){
     while(!volverMenu){
     cout << endl; 
     cout << "INTEGRANTES DEL PROYECTO: " << endl << endl; 
-    cout << "Sebastian Leonardo Molina Santos 00161024" << endl; 
+    cout << "Leonardo Sebastian Molina Santos 00161024" << endl; 
     cout << "Fernando Josue Escamilla Rivera 00053324" << endl; 
     cout << "Kristen Nicole Cruz Rodriguez 00051524" << endl << endl;
 
@@ -207,6 +213,9 @@ void Juego_Principal(){
     //Variables de la palabra a adivinar
     string palabra = seleccion_palabra(2);
     int num_characteres_palabra = palabra.size();
+
+    //Rondas del juego
+    int rondas = 0;
     //La palabra/guiones que se mostraran en pantalla
     string mostrar;
     //Letra que introducira el jugador
@@ -220,17 +229,6 @@ void Juego_Principal(){
     bool volverMenu = false; 
 
     while(!volverMenu){
-    cout << endl << endl; 
-    cout << "     AHORCADO      " << endl; 
-    cout << "Turno de: "  << endl;  
-        cout<<"    +---+ \n";
-        cout<<"        | \n";
-        cout<<"        | \n";
-        cout<<"        | \n";
-        cout<<"        | \n";
-        cout<<"        | \n";
-        cout<<"   ======";
-        cout << endl; 
         
     for (int i = 0; i < num_characteres_palabra; i++){//se asignan guiones a los valores de mostrar
         mostrar[i] = '_';
@@ -238,6 +236,13 @@ void Juego_Principal(){
     
     while (fallos < 6 && !palabra_completa)//Mientras los fallos sean menores a 6 y la palabra no este completa
     {
+        cout<<"========AHORCADO========\n";
+        cout<<"      Ronda "<<rondas<<endl;
+        cout<<"    Turno de:"<<jugadores[0].nombre<<endl;
+        dibujo_ahorcado(fallos);
+
+        cout<<endl;
+
         letra_correcta = false;//Letra correcta regresa a ser falso para continuar con el loop
 
         for (int i = 0; i < num_characteres_palabra; i++){
@@ -338,4 +343,82 @@ string seleccion_palabra(int diff){
     }
 
     return palabra;
+}
+
+int dibujo_ahorcado(int x){
+    switch (x){
+    case 0:
+        cout<<"\t +---+ \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t======";
+        break;
+
+    case 1:
+        cout<<"\t +---+ \n";
+        cout<<"\t |   | \n";
+        cout<<"\t O   | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t======";
+        break;
+
+    case 2:
+        cout<<"\t +---+ \n";
+        cout<<"\t |   | \n";
+        cout<<"\t O   | \n";
+        cout<<"\t |   | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t======";
+        break;
+
+    case 3:
+        cout<<"\t +---+ \n";
+        cout<<"\t |   | \n";
+        cout<<"\t O   | \n";
+        cout<<"\t/|   | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t======";
+        break;
+
+    case 4:
+        cout<<"\t +---+ \n";
+        cout<<"\t |   | \n";
+        cout<<"\t O   | \n";
+        cout<<"\t/|\\  | \n";
+        cout<<"\t     | \n";
+        cout<<"\t     | \n";
+        cout<<"\t======";
+        break;
+
+    case 5:
+        cout<<"\t +---+ \n";
+        cout<<"\t |   | \n";
+        cout<<"\t O   | \n";
+        cout<<"\t/|\\  | \n";
+        cout<<"\t  \\  | \n";
+        cout<<"\t     | \n";
+        cout<<"\t======";
+        break;
+
+        case 6:
+        cout<<"\t +---+ \n";
+        cout<<"\t |   | \n";
+        cout<<"\t O   | \n";
+        cout<<"\t/|\\  | \n";
+        cout<<"\t/ \\  | \n";
+        cout<<"\t     | \n";
+        cout<<"\t======";
+        break;
+
+    default:
+        break;
+    }
+
 }
