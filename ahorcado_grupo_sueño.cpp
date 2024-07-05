@@ -18,6 +18,7 @@ jugador jugadores[MAX_JUGADORES];
 //Funcion para mostrar el menu principal
 int menuPrincipal(); 
 
+//Funcion que muestra el menu comenzar juego
 int menuJuego(); 
 
 //funcion para agregar jugadores
@@ -113,6 +114,8 @@ int menuJuego(){
 }
 
 int agregarJugadores() {
+    int numero; 
+    
     int n;
     //un do while, cuando se le pide al usuario el numero de jugadores, si ingresa otro numero 
     //que no este en el rango de (1-4) se repite.
@@ -130,13 +133,25 @@ int agregarJugadores() {
         cin >> jugadores[i].nombre;
         jugadores[i].numFallos = 0; // Inicializamos numFallos a 0
     }
-
+    
     cout << "Jugadores agregados:" << endl;
-    for (int i = 0; i < n; i++) {
+       for (int i = 0; i < n; i++) {
         cout << "Jugador " << (i + 1) << ": " << jugadores[i].nombre << endl;
+        }
+        
+    cout << endl; 
+    cout << "Ingrese 1 para regresar al menu de juego: " << endl;
+    cin >> numero; 
+    
+    switch(numero){
+        case 1: 
+        menuJuego();
+        break;   
+        default:
+        cout << "Valor ingresado no valido. Intente de nuevo"; 
+        break; 
     }
-
-    return n;
+    
 }
 
 
@@ -238,7 +253,7 @@ void Juego_Principal(){
     {
         cout<<"========AHORCADO========\n";
         cout<<"      Ronda "<<rondas<<endl;
-        cout<<"    Turno de:"<<jugadores[0].nombre<<endl;
+        cout<<"    Turno de: "<<jugadores[0].nombre<<endl;
         dibujo_ahorcado(fallos);
 
         cout<<endl;
