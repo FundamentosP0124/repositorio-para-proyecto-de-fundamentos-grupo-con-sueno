@@ -280,9 +280,11 @@ void Juego_Principal() {
                 if (fallos >= 6 || palabra_completa) { // si el juego terminó
                     break; // salir del ciclo de turnos
                 }
+                cout<<"Numero de fallos de"<< jugadores[i].nombre << ":" <<jugadores[i].numFallos<<endl;
             }
             rondas++;
         }
+        
         //==================Pantalla que se mostrara dependiendo si se encontro o no la palabra==================
 
         // muestra la palabra correcta al final del juego
