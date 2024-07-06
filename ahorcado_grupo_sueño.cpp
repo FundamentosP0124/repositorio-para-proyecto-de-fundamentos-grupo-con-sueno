@@ -139,18 +139,7 @@ int agregarJugadores() {
         cout << "Jugador " << (i + 1) << ": " << jugadores[i].nombre << endl;
         }
         
-    cout << endl; 
-    cout << "Ingrese 1 para regresar al menu de juego: " << endl;
-    cin >> numero; 
-    
-    switch(numero){
-        case 1: 
-        menuJuego();
-        break;   
-        default:
-        cout << "Valor ingresado no valido. Intente de nuevo"; 
-        break; 
-    }
+    return n;
     
 }
 
@@ -224,103 +213,92 @@ void menu_dificultad(){
     cin >> dificultad; 
 }
 
-void Juego_Principal(){
+void Juego_Principal() {
     //Variables de la palabra a adivinar
-    string palabra = seleccion_palabra(2);
+    string palabra = seleccion_palabra(2); // selecciona la palabra
     int num_characteres_palabra = palabra.size();
-
+    int numjugadores = agregarJugadores(); // agrega jugadores y obtiene su número
     //Rondas del juego
     int rondas = 0;
-    //La palabra/guiones que se mostraran en pantalla
-    string mostrar;
+
+     //La palabra/guiones que se mostraran en pantalla
+    string mostrar(num_characteres_palabra, '_');
     //Letra que introducira el jugador
-    char letra;
-    //numero de fallos en el juego
-    int fallos = 0;
+    char letra; 
+    int fallos = 0; // número de fallos en el juego
     //Variables para confirmar si la palabra esta completamente adivinada y si la letra insertada es correcta
-    bool palabra_completa = false;
+    bool palabra_completa = false; 
     bool letra_correcta = false;
-    int num; 
-    bool volverMenu = false; 
+    int num;
+    bool volverMenu = false;
 
-    while(!volverMenu){
+    while (!volverMenu) {
+        while (fallos < 6 && !palabra_completa) { // Mientras los fallos sean menores a 6 y la palabra no esté completa
+            cout << "========AHORCADO========\n";
+            cout << "      Ronda " << rondas << endl;
+
+            for (int i = 0; i < numjugadores; i++) { // Itera a través de los jugadores
+                cout << "    Turno de: " << jugadores[i].nombre << endl;
+                dibujo_ahorcado(fallos);
+                cout << endl;
+
+                letra_correcta = false; // reinicia letra_correcta para la nueva letra
+
         
-    for (int i = 0; i < num_characteres_palabra; i++){//se asignan guiones a los valores de mostrar
-        mostrar[i] = '_';
-    }
-    
-    while (fallos < 6 && !palabra_completa)//Mientras los fallos sean menores a 6 y la palabra no este completa
-    {
-        cout<<"========AHORCADO========\n";
-        cout<<"      Ronda "<<rondas<<endl;
-        cout<<"    Turno de: "<<jugadores[0].nombre<<endl;
-        dibujo_ahorcado(fallos);
+                for (int j = 0; j < num_characteres_palabra; j++) {
+                    cout << mostrar[j] << " ";
+                }
+                cout << endl;
+                cout << "Ingrese la letra: ";
+                cin >> letra;
 
-        cout<<endl;
+                for (int j = 0; j < num_characteres_palabra; j++) {
+                    if (letra == palabra[j]) {
+                        mostrar[j] = letra; // reemplaza el guion con la letra
+                        letra_correcta = true; // indica que la letra es correcta
+                    }
+                }
 
-        letra_correcta = false;//Letra correcta regresa a ser falso para continuar con el loop
+                if (!letra_correcta) { // si la letra no está en la palabra
+                    fallos++;
+                    jugadores[i].numFallos++; // aumenta el número de fallos del jugador
+                }
 
-        for (int i = 0; i < num_characteres_palabra; i++){
-            cout<<mostrar[i]<<" ";
-        }
-        cout << endl; 
-        cout << "Ingrese la letra: "; 
-        cin>>letra;
+                int espacios_vacios = 0; // verifica si quedan guiones en la palabra
 
-        for (int i = 0; i < num_characteres_palabra; i++){//verifica si la letra es igual a algun caracter de la palabra
-            if (letra == palabra[i]){//si es igual
-                mostrar[i] = letra;//El _ respectivo a esa posicion se vuelve la letra
-                letra_correcta = true;//La letra existe en la palabra
-            } 
-        }
-            
-        if (letra_correcta == false){//Si la letra no existe en la palabra
-            fallos++;//El numero de fallos aumenta
-            //Subir numero de fallos del jugador aqui tambien
-        }
+                // cuenta los guiones restantes en la palabra mostrada
+                for (int j = 0; j < num_characteres_palabra; j++) {
+                    if (mostrar[j] == '_') {
+                        espacios_vacios++;
+                    }
+                }
 
-        int espacios_vacios = 0;//Variable para verificar si la palabra fue completamente encontrada
-        
-        for (int i = 0; i < num_characteres_palabra; i++){//Verifica que la palabra esta sin guiones bajos
+                if (espacios_vacios == 0) { // si no hay espacios vacios
+                    palabra_completa = true; // la palabra está completa
+                }
 
-            if (mostrar[i] == '_'){//Si hay guiones los espacios se suman
-                espacios_vacios++;
+                if (fallos >= 6 || palabra_completa) { // si el juego terminó
+                    break; // salir del ciclo de turnos
+                }
             }
+            rondas++;
         }
-        
-        if (espacios_vacios == 0){//Si no hay espacios vacios
-            palabra_completa = true;//La palabra esta completa
-        }
-    }
-//==================Pantalla que se mostrara dependiendo si se encontro o no la palabra==================
+        //==================Pantalla que se mostrara dependiendo si se encontro o no la palabra==================
 
-    if (fallos > 6){//No se encontro la palabra porque superaron el numero de fallos
-
-        cout<<"La palabra correcta era: ";
-        for (int i = 0; i < num_characteres_palabra; i++){//Se muestra la palabra
-            cout<<palabra[i];
-        }
+        // muestra la palabra correcta al final del juego
+        cout << "La palabra correcta era: " << palabra << endl;
         
-    } else{//Si se encontro la palabra
-        cout<<"La palabra correcta es: ";
-        for (int i = 0; i < num_characteres_palabra; i++){//se muestra la palabra
-            cout<<palabra[i];
+        cout << "Ingresar 1 para volver al menu principal: ";
+        cin >> num;
+
+        // si el número ingresado es 1, se regresa al menú principal
+        if (num == 1) {
+            volverMenu = true;
+        } else {
+            cout << "Numero ingresado no valido. Intente de nuevo" << endl;
         }
-    }
-    cout<<endl;//Salto de linea
-    cout << "Ingresar 1 para volver al menu principal: "; 
-    cin >> num; 
-    
-    //Si el numero ingresado es 1, se regresa al menu principal
-    if(num == 1){
-        volverMenu = true; 
-    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu 
-    else{
-        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
-    }
     }
 }
-
 int numero_aleatorio(){
     //Usando la hora del computador del usuario se saca el numero aleatorio
     int valor = time(0);
