@@ -9,7 +9,7 @@ using namespace std;
 
 const int MAX_JUGADORES = 4;
 
-int rondas; //Variable para el numero de rondas del juego
+int rondas = 0; //Variable para el numero de rondas del juego
 
 char regresar; //Variable para salir de sub menus
 
@@ -56,7 +56,9 @@ void Juego_Principal();
 //Funcion para dibujar al muñeco del ahorcado
 int dibujo_ahorcado(int x);
 
-void datos_en_archivos();
+//funcion menu elegir rondas
+void menu_rondas();
+
 
 int main(){
     int opcion;
@@ -108,8 +110,9 @@ int menuJuego(){
     cout << endl; 
     cout << "MENU DE COMENZAR JUEGO\n"; 
     cout << "[1] Agregar jugadores\n";
-    cout << "[2] Ver jugadores\n"; 
+    cout << "[2] Ver jugadores\n";  
     cout << "[3] Iniciar juego\n"; 
+    cout << "[4] regresar al menu principal\n"; 
     cout << "Ingrese su opcion: "; 
     cin >> accion; 
     system("cls");
@@ -129,7 +132,7 @@ int menuJuego(){
             return menuJuego();
         }
         
-        break; 
+        break;
 
     case 3:
     
@@ -142,22 +145,44 @@ int menuJuego(){
         
         break;
 
+    case 4:
+        break;
+
     default: 
         cout << "Valor ingresado no valido. Intente de nuevo" << endl; 
         break; 
     }
 }
 
-int agregarJugadores() {
-    int numero; 
-    bool num_jugadores_insertado = false;
+void menu_rondas(){
+    bool finalizar_menu = false;//Para romper el loop
 
-    while (!num_jugadores_insertado){
+    while (!finalizar_menu){
+        cout<<"Inserte las rondas para el juego (1-10): ";
+        cin>>rondas;//Se insertan las rondas
+
+        if (rondas < 1 || rondas > 10){
+            cout<<"Numero invalido de rondas, intente nuevamente\n";//el numero es menor que 1 o mayor a 10
+        }
+
+        else{
+            finalizar_menu = true;//Si el numero de rondas es valido entonces se cierra el loop
+        }
+    }
+
+    system("cls");
+    
+}
+
+int agregarJugadores() {
+    bool num_jugadores_insertado = false;//Variable para finalizar el menu
+
+    while (!num_jugadores_insertado){//mientras no se hayan insertado numero de jugadores
         cout<<"Cuantos jugadores deseria agregar (1-4): ";
-        cin>>numjugadores;
+        cin>>numjugadores;//Se insertan el numero de jugadores
 
         if (numjugadores < 1 || numjugadores > 4){
-            cout<<"Valor invalido, vuelva a ingresar";
+            cout<<"Valor invalido, vuelva a ingresar";//Si no esta entre los parametros pide de nuevo
         }
 
     else{
@@ -168,7 +193,7 @@ int agregarJugadores() {
     cout<<"Inserte el/los nombres de los jugadores\n";
 
     for (int i = 0; i < numjugadores; i++){
-        cout<<"Jugador "<<i+1<<": ";
+        cout<<"Jugador "<<i+1<<": ";//Se insertan los nombres de los jugadores
         cin>>jugadores[i].nombre;
     }
 
@@ -177,12 +202,14 @@ int agregarJugadores() {
 
 void ver_jugadores(){
     for (int i = 0; i < numjugadores; i++){
-        cout<<"Jugador "<<i+1<<": "<<jugadores[i].nombre<<"\n";
+        cout<<"Jugador "<<i+1<<": "<<jugadores[i].nombre<<"\n";//Con el for se muestra cada jugador
     }
     
     cout<<"Ingrese cualquier caracter para salir: ";
     cin>>regresar;
     system("cls");
+
+    menuJuego();
 }
 
 int menuAyuda(){
@@ -214,7 +241,6 @@ int mostrarIntegrantes(){
     cin >> regresar; 
     system("cls");
 }
-
 
 int salir(){
     cout << "Gracias por jugar ahorcado!" << endl; 
@@ -250,33 +276,35 @@ int menu_dificultad(){
 
 void Juego_Principal() {
 
-    int dificultad = menu_dificultad();
-    
-//Palabra a seleccioar para la ronda
-    string palabra = seleccion_palabra(dificultad);
-//Numero de caracteres de la palabra
-    int num_caracteres_palabra = palabra.size();
-//variable que se usara para lo visual y comparacion
-    string mostrar;
-//Letra que insertara el jugador
-    char letra;
+    menu_rondas();
 
-    char letras_usadas[20];
-    int num_letras_usadas = 0;
+    for (int i = 0; i < rondas; i++){
+        //se decide la dificultad de la ronda 
+        int dificultad = menu_dificultad();
+        //Palabra a seleccioar para la ronda
+        string palabra = seleccion_palabra(dificultad);
+        //Numero de caracteres de la palabra
+        int num_caracteres_palabra = palabra.size();
+        //variable que se usara para lo visual y comparacion
+        string mostrar;
+        //Letra que insertara el jugador
+        char letra;
 
-//Fallos totales del juego
-    int fallos = 0;
-//Variables para confirmar si la letra es correcta y si la palabra descubierta esta completa 
-    bool letra_correcta = false;
-    bool palabra_completa = false;
+        //Fallos totales del juego
+        int fallos = 0;
+        //Variables para confirmar si la letra es correcta y si la palabra descubierta esta completa 
+        bool letra_correcta = false;
+        bool palabra_completa = false;
 
-    for (int i = 0; i < num_caracteres_palabra; i++){//Primero haremos la palabra oculta guiones bajos
-        mostrar[i] = '_';
-    }
-    
-    while (fallos < 6 && !palabra_completa){//mientras los fallos sean menos que seis y la palabra no este completa
+        for (int i = 0; i < num_caracteres_palabra; i++){//Primero haremos la palabra oculta guiones bajos
+            mostrar[i] = '_';
+        }
 
-        for (int i = 0; i < numjugadores; i++){
+        cout<<"        RONDA "<<i+1<<endl;
+
+        while (fallos < 6 && !palabra_completa){//mientras los fallos sean menos que seis y la palabra no este completa
+
+            for (int i = 0; i < numjugadores; i++){
             //La confirmacion de letra correcta se vuelve falsa para seguir el bucle
             letra_correcta = false;
             //Lo que el jugador vera
@@ -284,7 +312,7 @@ void Juego_Principal() {
             for(int i = 0; i < numjugadores; i++){
                 cout << "     " <<jugadores[i].nombre << ": " << jugadores[i].numFallos << " fallos"; 
                 cout << endl; 
-                }
+            }
 
             cout<<"========AHORCADO========\n";
             cout<<"    turno de: "<<jugadores[i].nombre<<"\n";
@@ -350,10 +378,13 @@ void Juego_Principal() {
             }
             break;
         }
-
-        cout<<"\n\nIngrese cualquier caracter para continuar a la siguiente ronda: ";
+        
+        cout<<"\n\nIngrese cualquier caracter para continuar: ";
         cin>>regresar;
         system("cls");
+    }
+    
+
     }
 
 int numero_aleatorio(){
@@ -370,7 +401,7 @@ string seleccion_palabra(int diff){
     //Variables de las palabras del juego y su dificultad
     string palabra_facil[10]={"juego","taxi","comida","redes","caida","banana","arbol","tambor","soda","cubeta"};
     string palabra_normal[10]={"desinfectante","recolectar","mosquitos","escalofrios","chocolate","congelador","destruccion","monarquia","electrico","circulacion"};
-    string palabra_dificil[10]={"encefalografia","perplejidad","ovoviviparo","acostumbradamente","paralelepipedo","programacion","refraccion","cardiologia","caleidoscopio","desencadenante"};
+    string palabra_dificil[10]={"computadoras","perplejidad","ovoviviparo","acostumbradamente","paralelepipedo","programacion","refraccion","cardiologia","caleidoscopio","desencadenante"};
 
     string palabra;
     //La funcion retorna la palabra dependiendo de la dificultad
@@ -393,10 +424,6 @@ string seleccion_palabra(int diff){
     }
 
     return palabra;
-}
-
-void datos_en_archivo(){
-
 }
 
 int dibujo_ahorcado(int x){
