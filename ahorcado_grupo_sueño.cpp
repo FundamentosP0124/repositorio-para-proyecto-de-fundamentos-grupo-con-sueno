@@ -3,16 +3,20 @@
 #include<random>
 #include<conio.h>
 #include<string.h>
+#include<fstream>
 
 using namespace std;
 
 const int MAX_JUGADORES = 4;
 
+int rondas; //Variable para el numero de rondas del juego
+
+char regresar; //Variable para salir de sub menus
+
 struct jugador
 {
    string nombre;
    int numFallos;
-   int puntos; 
 };
 jugador jugadores[MAX_JUGADORES];
 
@@ -47,10 +51,12 @@ int numero_aleatorio();
 string seleccion_palabra(int diff);
 
 //Funcion del juego del ahorcado
-void Juego_Principal(int diff);
+void Juego_Principal();
 
 //Funcion para dibujar al muñeco del ahorcado
 int dibujo_ahorcado(int x);
+
+void datos_en_archivos();
 
 int main(){
     int opcion;
@@ -120,18 +126,20 @@ int menuJuego(){
         ver_jugadores(); 
         } else {
             cout<<"porfavor agregue jugadores primero";
+            return menuJuego();
         }
-        return menuJuego();
+        
         break; 
 
     case 3:
     
         if(numjugadores>0){
-            int dificultad = menu_dificultad();
-            Juego_Principal(dificultad); 
+            Juego_Principal(); 
         } else {
             cout<<"porfavor agregue jugadores primero";
+            return menuJuego();
         }
+        
         break;
 
     default: 
@@ -168,25 +176,18 @@ int agregarJugadores() {
 }
 
 void ver_jugadores(){
-    int salir;
-
     for (int i = 0; i < numjugadores; i++){
         cout<<"Jugador "<<i+1<<": "<<jugadores[i].nombre<<"\n";
     }
     
-    cout<<"Presione cualquier numero para salir: ";
-    cin>>salir;
+    cout<<"Ingrese cualquier caracter para salir: ";
+    cin>>regresar;
     system("cls");
 }
 
-
 int menuAyuda(){
-    int num; 
-    bool volverMenu = false; 
     
     //Permite volver al menu principal al mostrar las instrucciones  
-    while(!volverMenu){
-    cout << endl << endl; 
     cout << "COMO JUGAR AHORCADO: " << endl << endl; 
     cout << " (1) El juego elige una palabra al azar dependiendo del nivel de dificultad seleccionado" << endl; 
     cout << " (2) El jugador va llenando los espacios con cada letra de la palabra" << endl; 
@@ -195,43 +196,23 @@ int menuAyuda(){
     cout << " (5) Se permite introducir solo seis letras incorrectas, despues de esto el dibujo del ahorcado se completa" << endl; 
     cout << " (6) El juego finaliza cuando se llena la palabra o se completa el dibujo del ahorcado" << endl << endl;
 
-    cout << "Ingresar 1 para volver al menu principal: "; 
-    cin >> num;
+    cout << "Ingrese cualquier caracter para salir: "; 
+    cin >> regresar;
     system("cls");
-    
-    //Si el numero ingresado es 1, se regresa al menu principal
-    if(num == 1){
-        volverMenu = true; 
-    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu 
-    else{
-        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
-    }
-    }
 }
 
 int mostrarIntegrantes(){
     int num; 
     bool volverMenu = false; 
-
-    while(!volverMenu){
     cout << endl; 
     cout << "INTEGRANTES DEL PROYECTO: " << endl << endl; 
     cout << "Leonardo Sebastian Molina Santos 00161024" << endl; 
     cout << "Fernando Josue Escamilla Rivera 00053324" << endl; 
     cout << "Kristen Nicole Cruz Rodriguez 00051524" << endl << endl;
 
-    cout << "Ingresar 1 para volver al menu principal: "; 
-    cin >> num; 
+    cout << "Ingrese cualquier caracter para salir: "; 
+    cin >> regresar; 
     system("cls");
-    
-    //Si el numero ingresado es 1, se regresa al menu principal
-    if(num == 1){
-        volverMenu = true; 
-    } //Si el numero ingresado no es 1, se vuelve a presentar la opcion de volver al menu
-    else{
-        cout << "Numero ingresado no valido. Intente de nuevo" << endl; 
-    }
-}
 }
 
 
@@ -267,20 +248,25 @@ int menu_dificultad(){
     return dificultad;
 }
 
-void Juego_Principal(int diff) {
+void Juego_Principal() {
+
+    int dificultad = menu_dificultad();
+    
 //Palabra a seleccioar para la ronda
-    string palabra = seleccion_palabra(diff);
+    string palabra = seleccion_palabra(dificultad);
 //Numero de caracteres de la palabra
     int num_caracteres_palabra = palabra.size();
 //variable que se usara para lo visual y comparacion
     string mostrar;
 //Letra que insertara el jugador
     char letra;
+
+    char letras_usadas[20];
+    int num_letras_usadas = 0;
+
 //Fallos totales del juego
     int fallos = 0;
-//Variables para confirmar si la letra es correcta y si la palabra descubierta esta completa
-    int puntos = 0; 
-    //Variable que guarda y aumenta los puntos de los ganadores 
+//Variables para confirmar si la letra es correcta y si la palabra descubierta esta completa 
     bool letra_correcta = false;
     bool palabra_completa = false;
 
@@ -294,6 +280,12 @@ void Juego_Principal(int diff) {
             //La confirmacion de letra correcta se vuelve falsa para seguir el bucle
             letra_correcta = false;
             //Lo que el jugador vera
+
+            for(int i = 0; i < numjugadores; i++){
+                cout << "     " <<jugadores[i].nombre << ": " << jugadores[i].numFallos << " fallos"; 
+                cout << endl; 
+                }
+
             cout<<"========AHORCADO========\n";
             cout<<"    turno de: "<<jugadores[i].nombre<<"\n";
             dibujo_ahorcado(fallos);
@@ -321,12 +313,6 @@ void Juego_Principal(int diff) {
                 fallos++;//Los fallos totales aumentan
                 jugadores[i].numFallos++;//Los fallos del jugador aumentan
             }
-
-             if(letra_correcta == true){
-                puntos++; 
-                jugadores[i].puntos++; 
-                cout << jugadores[i].nombre << " gana un punto"; 
-            }
             
             int espacios_guiones = 0;//Variable para verificar si la palabra esta completa
 
@@ -340,27 +326,14 @@ void Juego_Principal(int diff) {
 
             if (espacios_guiones == 0){
                 palabra_completa = true;//Si no existen guiones entonces el loop termina
+                break;
             }
-
-           if(palabra_completa == true){
-           if(jugadores[i].puntos > jugadores[i].numFallos){
-                cout << endl;  
-                cout << "El ganador es: " << jugadores[i].nombre << endl;    
-           }
-           }
-
-           for(int i = 0; i < jugadores[i].puntos ; i++){
-           cout << endl;
-           cout << jugadores[i].nombre << ": " << jugadores[i].puntos << " puntos"; 
-           cout << endl; 
-           }
-        
         }
     }
 
     switch (palabra_completa){
         case 1:
-            cout<<"correcto";
+            cout<<"PALABRA ACERTADA\n";
 
             for (int i = 0; i < num_caracteres_palabra; i++){
                 cout<<palabra[i];
@@ -369,13 +342,19 @@ void Juego_Principal(int diff) {
             break;
 
         case 0:
-            cout<<"incorrecto, la palabra no se adivino";
+            cout<<"PALABRA FALLIDA\n\nLa palabra correcta era: ";
+            
+
+            for (int i = 0; i < num_caracteres_palabra; i++){
+                cout<<palabra[i];
+            }
             break;
         }
-        
+
+        cout<<"\n\nIngrese cualquier caracter para continuar a la siguiente ronda: ";
+        cin>>regresar;
+        system("cls");
     }
-
-
 
 int numero_aleatorio(){
     //Usando la hora del computador del usuario se saca el numero aleatorio
@@ -391,7 +370,7 @@ string seleccion_palabra(int diff){
     //Variables de las palabras del juego y su dificultad
     string palabra_facil[10]={"juego","taxi","comida","redes","caida","banana","arbol","tambor","soda","cubeta"};
     string palabra_normal[10]={"desinfectante","recolectar","mosquitos","escalofrios","chocolate","congelador","destruccion","monarquia","electrico","circulacion"};
-    string palabra_dificil[10]={"encefalografia","transustanciacion","ovoviviparo","acostumbradamente","paralelepipedo","programacion","refraccion","electroencefalografista","caleidoscopio","desencadenante"};
+    string palabra_dificil[10]={"encefalografia","perplejidad","ovoviviparo","acostumbradamente","paralelepipedo","programacion","refraccion","cardiologia","caleidoscopio","desencadenante"};
 
     string palabra;
     //La funcion retorna la palabra dependiendo de la dificultad
@@ -414,6 +393,10 @@ string seleccion_palabra(int diff){
     }
 
     return palabra;
+}
+
+void datos_en_archivo(){
+
 }
 
 int dibujo_ahorcado(int x){
