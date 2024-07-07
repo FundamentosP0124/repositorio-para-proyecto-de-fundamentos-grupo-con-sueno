@@ -12,6 +12,7 @@ struct jugador
 {
    string nombre;
    int numFallos;
+   int puntos; 
 };
 jugador jugadores[MAX_JUGADORES];
 
@@ -278,6 +279,8 @@ void Juego_Principal(int diff) {
 //Fallos totales del juego
     int fallos = 0;
 //Variables para confirmar si la letra es correcta y si la palabra descubierta esta completa
+    int puntos = 0; 
+    //Variable que guarda y aumenta los puntos de los ganadores 
     bool letra_correcta = false;
     bool palabra_completa = false;
 
@@ -318,6 +321,12 @@ void Juego_Principal(int diff) {
                 fallos++;//Los fallos totales aumentan
                 jugadores[i].numFallos++;//Los fallos del jugador aumentan
             }
+
+             if(letra_correcta == true){
+                puntos++; 
+                jugadores[i].puntos++; 
+                cout << jugadores[i].nombre << " gana un punto"; 
+            }
             
             int espacios_guiones = 0;//Variable para verificar si la palabra esta completa
 
@@ -332,6 +341,20 @@ void Juego_Principal(int diff) {
             if (espacios_guiones == 0){
                 palabra_completa = true;//Si no existen guiones entonces el loop termina
             }
+
+           if(palabra_completa == true){
+           if(jugadores[i].puntos > jugadores[i].numFallos){
+                cout << endl;  
+                cout << "El ganador es: " << jugadores[i].nombre << endl;    
+           }
+           }
+
+           for(int i = 0; i < jugadores[i].puntos ; i++){
+           cout << endl;
+           cout << jugadores[i].nombre << ": " << jugadores[i].puntos << " puntos"; 
+           cout << endl; 
+           }
+        
         }
     }
 
@@ -346,12 +369,13 @@ void Juego_Principal(int diff) {
             break;
 
         case 0:
-            cout<<"incorrecto";
+            cout<<"incorrecto, la palabra no se adivino";
             break;
         }
         
-
     }
+
+
 
 int numero_aleatorio(){
     //Usando la hora del computador del usuario se saca el numero aleatorio
