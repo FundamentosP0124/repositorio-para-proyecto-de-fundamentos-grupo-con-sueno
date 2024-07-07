@@ -23,6 +23,7 @@ int menuJuego();
 
 //funcion para agregar jugadores
 int agregarJugadores();
+int numjugadores=0; //indica el numero de jugadores
 
 //Funcion para mostrar el menu de ayuda
 int menuAyuda(); 
@@ -103,9 +104,14 @@ int menuJuego(){
     switch(accion){
         case 1: 
         agregarJugadores(); 
+        return menuJuego();
         break; 
-        case 2: 
+        case 2:
+        if(numjugadores>0){
         Juego_Principal(); 
+        } else {
+            cout<<"porfavor agregue jugadores primero";
+        }
         break; 
         default: 
         cout << "Valor ingresado no valido. Intente de nuevo" << endl; 
@@ -127,6 +133,7 @@ int agregarJugadores() {
             cout << "Numero de jugadores no valido. Intente nuevamente." << endl;
         }
     } while (n < 1 || n > MAX_JUGADORES);
+    numjugadores=n;
     //un bucle for para gregar los nombres de los jugadores segun el numero introducido.
     for (int i = 0; i < n; i++) {
         cout << "Agregue el nombre del jugador " << (i + 1) << ": ";
@@ -217,7 +224,6 @@ void Juego_Principal() {
     //Variables de la palabra a adivinar
     string palabra = seleccion_palabra(2); // selecciona la palabra
     int num_characteres_palabra = palabra.size();
-    int numjugadores = agregarJugadores(); // agrega jugadores y obtiene su número
     //Rondas del juego
     int rondas = 0;
 
@@ -280,7 +286,7 @@ void Juego_Principal() {
                 if (fallos >= 6 || palabra_completa) { // si el juego terminó
                     break; // salir del ciclo de turnos
                 }
-                cout<<"Numero de fallos de"<< jugadores[i].nombre << ":" <<jugadores[i].numFallos<<endl;
+                cout<<"Numero de fallos de "<< jugadores[i].nombre << ":" <<jugadores[i].numFallos<<endl;
             }
             rondas++;
         }
