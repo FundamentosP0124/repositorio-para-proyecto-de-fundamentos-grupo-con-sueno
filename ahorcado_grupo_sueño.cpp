@@ -155,6 +155,7 @@ int menuJuego(){
         break; 
     }
 }
+
 void pantallafinal(){
     {
     // Ordenar los jugadores por número de fallos de menor a mayor
@@ -173,9 +174,14 @@ void pantallafinal(){
     for (int i = 0; i < numjugadores; i++) {
         cout << i + 1 << ". " << jugadores[i].nombre << " - Fallos: " << jugadores[i].numFallos << endl;
     }
-    cout << "==================================\n";
+    cout << "==================================\n\n";
+
+    cout<<"Ingrese cualquier caracter para salir: ";
+    cin>>regresar;
+    system("cls");
+    }
 }
-}
+
 void menu_rondas(){
     bool finalizar_menu = false;//Para romper el loop
 
@@ -427,7 +433,7 @@ string seleccion_palabra(int diff){
     //Variables de las palabras del juego y su dificultad
     string palabra_facil[10]={"juego","taxi","comida","redes","caida","banana","arbol","tambor","soda","cubeta"};
     string palabra_normal[10]={"desinfectante","recolectar","mosquitos","escalofrios","chocolate","congelador","destruccion","monarquia","electrico","circulacion"};
-    string palabra_dificil[10]={"computadoras","perplejidad","ovoviviparo","acostumbradamente","paralelepipedo","programacion","refraccion","cardiologia","caleidoscopio","desencadenante"};
+    string palabra_dificil[10]={"computadoras","perplejidad","ovoviviparo","universitarios","paralelepipedo","programacion","refraccion","cardiologia","caleidoscopio","desencadenante"};
 
     string palabra;
     //La funcion retorna la palabra dependiendo de la dificultad
