@@ -59,6 +59,8 @@ int dibujo_ahorcado(int x);
 //funcion menu elegir rondas
 void menu_rondas();
 
+void pantallafinal();
+
 
 int main(){
     int opcion;
@@ -153,7 +155,27 @@ int menuJuego(){
         break; 
     }
 }
-
+void pantallafinal(){
+    for(int i = 0; i<numjugadores-1;i++){
+        for(int j=0; j<numjugadores-i-1;i++){
+            if (jugadores[j].numFallos>jugadores[j+1].numFallos)
+            {
+                jugador temp= jugadores[j];
+                jugadores[j]= jugadores[j+1];
+                jugadores[j+1]= temp;
+            }
+            
+        }
+    }
+    //aqui se mostrarian los resultados finales
+    cout << "======= RESULTADOS FINALES =======\n";
+    cout<<"ordenados de menos fallos a mas fallos""\n";
+    for(int i=0; i<numjugadores; i++){
+        cout << i+1 << "lugar" << ". " << jugadores[i].nombre << " - Fallos: " << jugadores[i].numFallos << endl;
+       
+    }
+     cout << "==================================\n";
+}
 void menu_rondas(){
     bool finalizar_menu = false;//Para romper el loop
 
@@ -383,6 +405,7 @@ void Juego_Principal() {
         cin>>regresar;
         system("cls");
     }
+    pantallafinal();
     
 
     }
