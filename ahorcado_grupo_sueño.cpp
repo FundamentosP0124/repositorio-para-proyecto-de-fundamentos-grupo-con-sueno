@@ -243,8 +243,11 @@ int menuAyuda(){
     cout << " (3) Si la letra introducida se encuentra en la palabra, se llenara el espacio y se mostrara en la posicion correcta" << endl; 
     cout << " (4) Si la letra introducida no se encuentra en la palabra, se dibujara una parte del ahorcado" << endl; 
     cout << " (5) Se permite introducir solo seis letras incorrectas, despues de esto el dibujo del ahorcado se completa" << endl; 
-    cout << " (6) El juego finaliza cuando se llena la palabra o se completa el dibujo del ahorcado" << endl << endl;
-
+    cout << " (6) El juego finaliza cuando se llena la palabra o se completa el dibujo del ahorcado" << endl;
+    cout << " (7) El ganador se determina hasta finalizar la cantidad de rondas seleccionadas" << endl; 
+    cout << " (8) Los fallos se van acumulando al ingresar una letra incorrecta" << endl; 
+    cout << " (9) El jugador que tenga menos fallos es el ganador del juego" << endl << endl; 
+    
     cout << "Ingrese cualquier caracter para salir: "; 
     cin >> regresar;
     system("cls");
