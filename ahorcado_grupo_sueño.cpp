@@ -156,7 +156,7 @@ int menuJuego(){
     }
 }
 void pantallafinal(){
-    void pantallafinal(){
+    {
     // Ordenar los jugadores por número de fallos de menor a mayor
     for (int i = 0; i < numjugadores - 1; i++) {
         for (int j = 0; j < numjugadores - i - 1; j++) {
