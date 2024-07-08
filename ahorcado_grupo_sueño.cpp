@@ -156,25 +156,25 @@ int menuJuego(){
     }
 }
 void pantallafinal(){
-    for(int i = 0; i<numjugadores-1;i++){
-        for(int j=0; j<numjugadores-i-1;i++){
-            if (jugadores[j].numFallos>jugadores[j+1].numFallos)
-            {
-                jugador temp= jugadores[j];
-                jugadores[j]= jugadores[j+1];
-                jugadores[j+1]= temp;
+    void pantallafinal(){
+    // Ordenar los jugadores por número de fallos de menor a mayor
+    for (int i = 0; i < numjugadores - 1; i++) {
+        for (int j = 0; j < numjugadores - i - 1; j++) {
+            if (jugadores[j].numFallos > jugadores[j + 1].numFallos) {
+                jugador temp = jugadores[j];
+                jugadores[j] = jugadores[j + 1];
+                jugadores[j + 1] = temp;
             }
-            
         }
     }
-    //aqui se mostrarian los resultados finales
+
+    // Mostrar los resultados
     cout << "======= RESULTADOS FINALES =======\n";
-    cout<<"ordenados de menos fallos a mas fallos""\n";
-    for(int i=0; i<numjugadores; i++){
-        cout << i+1 << "lugar" << ". " << jugadores[i].nombre << " - Fallos: " << jugadores[i].numFallos << endl;
-       
+    for (int i = 0; i < numjugadores; i++) {
+        cout << i + 1 << ". " << jugadores[i].nombre << " - Fallos: " << jugadores[i].numFallos << endl;
     }
-     cout << "==================================\n";
+    cout << "==================================\n";
+}
 }
 void menu_rondas(){
     bool finalizar_menu = false;//Para romper el loop
