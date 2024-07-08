@@ -186,10 +186,10 @@ void menu_rondas(){
     bool finalizar_menu = false;//Para romper el loop
 
     while (!finalizar_menu){
-        cout<<"Inserte las rondas para el juego (1-10): ";
+        cout<<"Inserte las rondas para el juego (1-5): ";
         cin>>rondas;//Se insertan las rondas
 
-        if (rondas < 1 || rondas > 10){
+        if (rondas < 1 || rondas > 5){
             cout<<"Numero invalido de rondas, intente nuevamente\n";//el numero es menor que 1 o mayor a 10
         }
 
@@ -333,7 +333,7 @@ void Juego_Principal() {
 
         cout<<"        RONDA "<<i+1<<endl;
 
-        while (fallos < 6 && !palabra_completa){//mientras los fallos sean menos que seis y la palabra no este completa
+        while (fallos <= 5 && !palabra_completa){//mientras los fallos sean menos que seis y la palabra no este completa
 
             for (int i = 0; i < numjugadores; i++){
             //La confirmacion de letra correcta se vuelve falsa para seguir el bucle
@@ -387,7 +387,16 @@ void Juego_Principal() {
                 palabra_completa = true;//Si no existen guiones entonces el loop termina
                 break;
             }
-        }
+
+            if (fallos > 5 || palabra_completa == true){
+                break;
+            }
+            
+            }
+
+            if (fallos > 5 || palabra_completa == true){
+                break;
+            }
     }
 
     switch (palabra_completa){
@@ -400,10 +409,13 @@ void Juego_Principal() {
             
             break;
 
-        case 0:
-            cout<<"PALABRA FALLIDA\n\nLa palabra correcta era: ";
-            
+        case 0://Pierden la ronda
+            cout<<"     RONDA FALLADA :(\n";
 
+            dibujo_ahorcado(fallos);
+
+            cout<<"\nLa palabra correcta era: ";
+            
             for (int i = 0; i < num_caracteres_palabra; i++){
                 cout<<palabra[i];
             }
